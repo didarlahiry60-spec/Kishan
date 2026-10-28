@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>কৃষাণ - AI এগ্রো-ইন্টেলিজেন্স ও বাজারদর</title>
+  <!-- Google Fonts: Hind Siliguri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="mobile-container">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="brand">
+          <div class="logo-icon">🌾</div>
+          <div>
+            <h1 class="app-title">কৃষাণ <span class="ai-badge-header">AI 2.0</span></h1>
+            <p class="app-subtitle">কৃষকের এআই বাজারদর ও শস্য পরামর্শক</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="district-badge">
+            <label for="districtSelect">📍</label>
+            <select id="districtSelect" class="district-dropdown">
+              <option value="বগুড়া" selected>বগুড়া</option>
+              <option value="ঢাকা">ঢাকা</option>
+              <option value="রাজশাহী">রাজশাহী</option>
+              <option value="যশোর">যশোর</option>
+              <option value="দিনাজপুর">দিনাজপুর</option>
+              <option value="রংপুর">রংপুর</option>
+              <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+              <option value="কুমিল্লা">কুমিল্লা</option>
+              <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+              <option value="সিলেট">সিলেট</option>
+              <option value="বরিশাল">বরিশাল</option>
+              <option value="খুলনা">খুলনা</option>
+              <option value="মেহেরপুর">মেহেরপুর</option>
+              <option value="কুষ্টিয়া">কুষ্টিয়া</option>
+              <option value="পাবনা">পাবনা</option>
+              <option value="টাঙ্গাইল">টাঙ্গাইল</option>
+              <option value="ফরিদপুর">ফরিদপুর</option>
+              <option value="নাটোর">নাটোর</option>
+            </select>
+          </div>
+          <button id="btnThemeToggle" class="theme-toggle-btn" title="ডার্ক মোড পরিবর্তন করুন">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Web News Crawler Ticker -->
+      <div class="crawler-ticker-bar" id="crawlerTickerBar">
+        <span class="ticker-tag">🌾 মাঠের লাইভ খবর:</span>
+        <span class="ticker-text" id="crawlerTickerText">ইন্টারনেট থেকে সরাসরি দৈনিক বাজার সংবাদের তথ্য সংগ্রহ হচ্ছে...</span>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- TAB 1: BAZAR DOR (বাজারদর) -->
+      <section id="tab-bazar" class="tab-pane active">
+        <!-- Market Alert / Ticker -->
+        <div class="quick-summary-card">
+          <div class="summary-header">
+            <span class="icon">📢</span>
+            <span class="summary-title" id="marketHeadline">আজকের বাজারদর ও এআই বিশ্লেষণ</span>
+            <button class="voice-btn-mini" id="btnVoiceSummary" title="সারসংক্ষেপ শুনুন">🔊 শুনুন</button>
+          </div>
+          <p class="summary-text" id="marketSummaryText">তথ্য লোড হচ্ছে...</p>
+          <div class="bargain-tip">
+            💡 <strong>দর কষাকষি টিপস:</strong> <span id="bargainTipText">সরকারি নির্ধারিত পাইকারি রেটের চেয়ে কম দামে আড়তে বিক্রি করবেন না।</span>
+          </div>
+        </div>
+
+        <!-- Interactive 7-Day Price Trend Graph -->
+        <div class="trend-chart-card">
+          <div class="chart-header">
+            <h4>📈 বাজারদর পরিবর্তনের গতিপ্রকৃতি (গত ৭ দিন)</h4>
+            <select id="trendCropSelect" class="trend-select">
+              <option value="গোল আলু">গোল আলু</option>
+              <option value="কাঁচা মরিচ">কাঁচা মরিচ</option>
+              <option value="দেশি পেঁয়াজ">দেশি পেঁয়াজ</option>
+              <option value="ব্রি ধান-২৮">ব্রি ধান-২৮</option>
+              <option value="টমেটো (পাকা)">টমেটো</option>
+            </select>
+          </div>
+          <div class="svg-chart-container">
+            <svg id="trendSvg" viewBox="0 0 360 120" class="trend-svg"></svg>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-color retail"></span> খুচরা দর</span>
+            <span class="legend-item"><span class="legend-color wholesale"></span> পাইকারি দর</span>
+          </div>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="search-section">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="ফসলের নাম দিয়ে খুঁজুন (যেমন আলু, মরিচ, ধান)...">
+          </div>
+          <div class="category-chips" id="categoryChips">
+            <button class="chip active" data-cat="সব">সব</button>
+            <button class="chip" data-cat="সবজি">সবজি</button>
+            <button class="chip" data-cat="চাল-ডাল">চাল ও ডাল</button>
+            <button class="chip" data-cat="মসলা">মসলা</button>
+            <button class="chip" data-cat="তৈলবীজ">তৈলবীজ</button>
+            <button class="chip" data-cat="ফল">ফল</button>
+          </div>
+        </div>
+
+        <!-- Commodity List -->
+        <div class="commodity-list-header">
+          <span>পণ্য ও মোকাম</span>
+          <span class="rates-label">পাইকারি ও খুচরা দর (টাকা)</span>
+        </div>
+        <div id="commodityContainer" class="commodity-grid">
+          <div class="loading-spinner">বাজারদর লোড হচ্ছে...</div>
+        </div>
+      </section>
+
+      <!-- TAB 2: AI CONSULTANT & VOICE ASSISTANT (এআই কৃষি পরামর্শক) -->
+      <section id="tab-consultant" class="tab-pane">
+        <div class="consultant-hero">
+          <div class="consultant-badge">🤖 এআই কৃষি বিজ্ঞানী ও ভয়েস সহকারী</div>
+          <h2>কথা বলে ফসলের যেকোনো সমাধান জানুন</h2>
+          <p>মাইক্রোফোনে বাংলায় কথা বলুন বা টাইপ করুন — এআই তাৎক্ষণিক প্রেসক্রিপশন ও ভয়েসে পরামর্শ দেবে।</p>
+        </div>
+
+        <!-- Voice & Query Input Box -->
+        <div class="query-card">
+          <div class="query-input-wrap">
+            <input type="text" id="consultantInput" placeholder="যেমন: আলুর পাতা পচে যাচ্ছে, এখন কী স্প্রে করব?">
+            <button id="btnMicInput" class="btn-mic" title="মুখে কথা বলে বলুন">
+              <span id="micIcon">🎙️</span>
+            </button>
+          </div>
+          
+          <div class="quick-questions">
+            <span class="quick-lbl">দ্রুত প্রশ্ন করুন:</span>
+            <button class="quick-q-chip" data-q="আলুর নাবী ধসা রোগ প্রতিরোধে কী স্প্রে করব?">আলুর নাবী ধসা</button>
+            <button class="quick-q-chip" data-q="ধানের শীষে মাজরা পোকা ও ব্লাস্ট দেখা দিলে করণীয় কী?">ধানের ব্লাস্ট ও পোকা</button>
+            <button class="quick-q-chip" data-q="বৃষ্টির পর জমিতে ইউরিয়া বা কীটনাশক দেওয়া যাবে কি?">বৃষ্টির পর সার</button>
+            <button class="quick-q-chip" data-q="কাওরান বাজারে পাইকারি আলুর দর অনুযায়ী আড়তদারকে কী বলব?">আড়তদার দরদাম</button>
+          </div>
+
+          <button id="btnAskConsultant" class="btn-ask-ai">
+            <span>এআই পরামর্শকের উত্তর নিন</span> 🚀
+          </button>
+        </div>
+
+        <!-- Consultant Response Area -->
+        <div id="consultantResponseCard" class="consultant-response-card" style="display:none;">
+          <div class="response-header">
+            <div class="bot-avatar">🌾</div>
+            <div>
+              <h4>এআই কৃষি কর্মকর্তার উত্তর</h4>
+              <span class="response-time">সরাসরি বিশেষজ্ঞ পরামর্শ</span>
+            </div>
+            <button id="btnListenAnswerVoice" class="voice-btn-mini">🔊 ভয়েস শুনুন</button>
+          </div>
+          <div class="response-body">
+            <p id="consultantAnswerText" class="answer-main"></p>
+            <div class="action-steps" id="consultantActionsBox">
+              <h5>✓ অবিলম্বে করণীয়:</h5>
+              <ul id="consultantActionsList"></ul>
+            </div>
+            <div class="caution-box-mini" id="consultantCautionBox"></div>
+          </div>
+        </div>
+
+        <!-- AI Crop Doctor / Disease Scanner -->
+        <div class="crop-doctor-section">
+          <div class="section-title-wrap">
+            <h3>🩺 এআই ক্রপ ডক্টর (রোগ নির্ণয় ও চিকিৎসা)</h3>
+            <span class="doctor-badge">BRRI / BARI প্রোটোকল</span>
+          </div>
+          <div class="doctor-picker-row">
+            <select id="docCropSelect" class="doc-select">
+              <option value="আলু">আলু</option>
+              <option value="ধান">ধান</option>
+              <option value="পেঁয়াজ">পেঁয়াজ</option>
+              <option value="বেগুন">বেগুন</option>
+            </select>
+            <input type="text" id="docSymptomInput" class="doc-symptom-input" placeholder="লক্ষণ লিখুন (যেমন: পাতায় ভেজা দাগ, পোকার ছিদ্র)...">
+            <button id="btnDiagnose" class="btn-diagnose">রোগ নির্ণয়</button>
+          </div>
+
+          <div id="diagnosisResultCard" class="diagnosis-card" style="display:none;">
+            <div class="diag-header">
+              <div>
+                <span class="diag-severity-badge" id="diagSeverity">জরুরি সতর্কতা</span>
+                <h4 id="diagDiseaseName">রোগের নাম</h4>
+                <p id="diagPathogen" class="pathogen-txt"></p>
+              </div>
+            </div>
+            <div class="diag-content">
+              <div class="diag-block">
+                <strong>🔍 লক্ষণ:</strong>
+                <p id="diagSymptoms"></p>
+              </div>
+              <div class="diag-block chemical">
+                <strong>🧪 রাসায়নিক চিকিৎসা (ওষুধ ও মাত্রা):</strong>
+                <p id="diagChemical"></p>
+              </div>
+              <div class="diag-block organic">
+                <strong>🌿 প্রাকৃতিক ও জৈব প্রতিকার:</strong>
+                <p id="diagOrganic"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Negotiation Calculator -->
+        <div class="negotiation-calculator-section">
+          <h3>💰 আড়তদার নেগোসিয়েশন ও লাভ ক্যালকুলেটর</h3>
+          <p class="calc-sub">আড়তদার কম দাম বললে তাকে সরকারি রেটের শক্ত প্রমাণ দিয়ে ন্যায্যমূল্য আদায় করুন।</p>
+          
+          <div class="calc-grid">
+            <div class="form-group">
+              <label>ফসলের নাম:</label>
+              <input type="text" id="calcCrop" value="গোল আলু">
+            </div>
+            <div class="form-group">
+              <label>পরিমাণ (মণ):</label>
+              <input type="number" id="calcQty" value="৫০">
+            </div>
+            <div class="form-group">
+              <label>উৎপাদন খরচ (টাকা/মণ):</label>
+              <input type="number" id="calcCost" value="৭৫০">
+            </div>
+            <div class="form-group">
+              <label>পরিবহন খরচ (টাকা/মণ):</label>
+              <input type="number" id="calcTransport" value="৫০">
+            </div>
+            <div class="form-group">
+              <label>সরকারি পাইকারি রেট (টাকা/কেজি):</label>
+              <input type="number" id="calcMarketPerKg" value="২৮">
+            </div>
+            <div class="form-group">
+              <label>আড়তদারের প্রস্তাব (টাকা/মণ):</label>
+              <input type="number" id="calcAratdarOffer" value="৯৫০">
+            </div>
+          </div>
+          <button id="btnCalculateDeal" class="btn-calc-deal">হিসাব করুন ও দর কষাকষি সংলাপ নিন</button>
+
+          <div id="calcResultBox" class="calc-result-box" style="display:none;">
+            <div class="result-stats-row">
+              <div class="stat-pill"><span class="lbl">খরচ/মণ:</span> <strong id="resCostPerMon">৮০০ ৳</strong></div>
+              <div class="stat-pill"><span class="lbl">ন্যায্য দর/মণ:</span> <strong id="resFairMon" class="text-green">১১২০ ৳</strong></div>
+              <div class="stat-pill"><span class="lbl">মোট লাভ:</span> <strong id="resNetProfit" class="text-green">১৬,০০০ ৳</strong></div>
+            </div>
+            <div class="deal-evaluation" id="resEvaluation"></div>
+            <div class="negotiation-script-box">
+              <h5>🗣️ আড়তদারকে যেভাবে বলবেন (নেগোসিয়েশন সংলাপ):</h5>
+              <p id="resScript"></p>
+              <button id="btnSpeakScript" class="voice-btn-mini">🔊 সংলাপটি পড়ে শোনান</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- TAB 3: WEATHER & AGRO ADVISORY (আবহাওয়া ও পরামর্শ) -->
+      <section id="tab-weather" class="tab-pane">
+        <!-- Live Weather Card -->
+        <div class="weather-hero-card">
+          <div class="weather-top">
+            <div>
+              <h2 id="weatherDistrict">বগুড়া</h2>
+              <p class="weather-date" id="weatherDate">আজকের পূর্বাভাস</p>
+              <div class="weather-cond" id="weatherCondition">বিক্ষিপ্ত বৃষ্টিপাত</div>
+            </div>
+            <div class="weather-temp-box">
+              <span class="temp-big" id="currentTemp">৩১°</span>
+              <span class="temp-unit">C</span>
+            </div>
+          </div>
+
+          <div class="weather-stats">
+            <div class="stat-item">
+              <span class="stat-icon">🌧️</span>
+              <span class="stat-val" id="weatherRain">১৮ মিমি</span>
+              <span class="stat-lbl">বৃষ্টির সম্ভাবনা (৭৫%)</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">💧</span>
+              <span class="stat-val" id="weatherHumidity">৮২%</span>
+              <span class="stat-lbl">আর্দ্রতা</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">💨</span>
+              <span class="stat-val" id="weatherWind">১৪ কিমি/ঘ</span>
+              <span class="stat-lbl">বাতাস</span>
+            </div>
+          </div>
+
+          <div class="audio-listen-bar">
+            <button id="btnListenAdvisory" class="btn-voice-large">
+              <span class="pulse-icon">🔊</span>
+              <span>আজকের সম্পূর্ণ কৃষি পরামর্শ বাংলায় শুনুন</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Agro-Advisory Section -->
+        <div class="advisory-card">
+          <div class="advisory-header">
+            <div class="ai-badge">🤖 এআই কৃষি কর্মকর্তা (BRRI/BARI মানদণ্ড)</div>
+            <h3 id="advisoryHeadline">ভারী বৃষ্টিপাত সতর্কতা: পানি নিষ্কাশন নালা প্রস্তুত রাখুন</h3>
+          </div>
+
+          <div class="action-box dos-box">
+            <h4><span class="badge-icon green">✓</span> যা করবেন (করণীয়):</h4>
+            <ul id="advisoryDosList">
+              <li>জমিতে জমে থাকা অতিরিক্ত পানি নিষ্কাশনের নালা কেটে দিন।</li>
+              <li>বৃষ্টির পরপরই রোগবালাই দমনে অনুমোদিত ছত্রাকনাশক স্প্রে করুন।</li>
+            </ul>
+          </div>
+
+          <div class="action-box donts-box">
+            <h4><span class="badge-icon red">✕</span> যা করবেন না (বর্জনীয়):</h4>
+            <ul id="advisoryDontsList">
+              <li>মেঘলা বা বৃষ্টির আবহাওয়ায় জমিতে ইউরিয়া সার প্রয়োগ করবেন না।</li>
+              <li>বাতাস ও বৃষ্টির সময় স্প্রে করা থেকে বিরত থাকুন।</li>
+            </ul>
+          </div>
+
+          <div class="action-box irrig-box">
+            <h4><span class="badge-icon blue">💧</span> সেচ নির্দেশনা:</h4>
+            <p id="advisoryIrrigation">পর্যাপ্ত বৃষ্টিপাতের সম্ভাবনা থাকায় সব ধরনের সেচ প্রদান সম্পূর্ণ বন্ধ রাখুন।</p>
+          </div>
+        </div>
+
+        <!-- 7-Day Forecast Strip -->
+        <div class="forecast-strip-section">
+          <h3>আগামী ৭ দিনের আবহাওয়া</h3>
+          <div class="forecast-scroll" id="forecastScroll"></div>
+        </div>
+      </section>
+
+      <!-- TAB 4: MY FARM & PROFILE (আমার খামার) -->
+      <section id="tab-profile" class="tab-pane">
+        <div class="profile-card">
+          <h2>🌾 আমার খামার ও প্রোফাইল</h2>
+          <p class="profile-desc">কোনো পাসওয়ার্ডের প্রয়োজন নেই। আপনার এলাকা ও প্রধান ফসল নির্বাচন করে সেভ করুন।</p>
+          
+          <form id="profileForm">
+            <div class="form-group">
+              <label>কৃষকের নাম:</label>
+              <input type="text" id="profName" value="করিম মিয়া" placeholder="আপনার নাম লিখুন">
+            </div>
+
+            <div class="form-group">
+              <label>মোবাইল নম্বর (জরুরি SMS অ্যালার্টের জন্য):</label>
+              <input type="tel" id="profPhone" value="01712345678" placeholder="017XXXXXXXX">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group half">
+                <label>জেলা:</label>
+                <select id="profDistrict" class="district-dropdown">
+                  <option value="বগুড়া" selected>বগুড়া</option>
+                  <option value="ঢাকা">ঢাকা</option>
+                  <option value="রাজশাহী">রাজশাহী</option>
+                  <option value="যশোর">যশোর</option>
+                  <option value="দিনাজপুর">দিনাজপুর</option>
+                  <option value="রংপুর">রংপুর</option>
+                  <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                  <option value="কুমিল্লা">কুমিল্লা</option>
+                  <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                </select>
+              </div>
+              <div class="form-group half">
+                <label>উপজেলা / ইউনিয়ন:</label>
+                <input type="text" id="profUpazila" value="শিবগঞ্জ" placeholder="উপজেলা লিখুন">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>আপনার প্রধান ফসলসমূহ (ট্যাপ করে বাছাই করুন):</label>
+              <div class="crop-selector" id="cropSelector">
+                <span class="crop-tag active" data-crop="ধান">🌾 ধান</span>
+                <span class="crop-tag active" data-crop="আলু">🥔 আলু</span>
+                <span class="crop-tag active" data-crop="পেঁয়াজ">🧅 পেঁয়াজ</span>
+                <span class="crop-tag" data-crop="কাঁচা মরিচ">🌶️ কাঁচা মরিচ</span>
+                <span class="crop-tag" data-crop="সরিষা">🌼 সরিষা</span>
+                <span class="crop-tag" data-crop="টমেটো">🍅 টমেটো</span>
+                <span class="crop-tag" data-crop="বেগুন">🍆 বেগুন</span>
+                <span class="crop-tag" data-crop="ভুট্টা">🌽 ভুট্টা</span>
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" id="profSmsAlerts" checked> 
+                ঝড় ও অতিবৃষ্টির জরুরি সতর্কতা সরাসরি মোবাইলে বাংলা SMS পেতে চাই
+              </label>
+            </div>
+
+            <button type="submit" class="btn-save-profile">তথ্য সেভ করুন</button>
+            <div id="profileSaveStatus" class="save-status"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 5: ADMIN / SYNC (এডমিন ও কন্ট্রোল) -->
+      <section id="tab-admin" class="tab-pane">
+        <div class="admin-card">
+          <h2>⚙️ সিস্টেম ও এআই কন্ট্রোল</h2>
+          <p>DAM সরকারি পোর্টাল স্ক্র্যাপিং, এআই এজেন্ট সিঙ্ক এবং জরুরি নোটিফিকেশন নিয়ন্ত্রণ।</p>
+          
+          <div class="admin-actions">
+            <div class="action-card">
+              <h3>📡 লাইভ ওয়েব ক্রলার ও এআই বাজার সিঙ্ক</h3>
+              <p>দাম ও সংবাদের সিগন্যাল আপডেট করতে লাইভ এজেন্ট রান করুন।</p>
+              <button id="btnTriggerSync" class="btn-admin-action">বাজারদর ও সংবাদ সিঙ্ক করুন</button>
+              <span id="syncResult" class="action-result"></span>
+            </div>
+
+            <div class="action-card">
+              <h3>🚨 জরুরি আবহাওয়া SMS প্রেরণ</h3>
+              <p>নিবন্ধিত কৃষকদের ফোনে সরাসরি আবহাওয়া সতর্কতা মেসেজ পাঠান।</p>
+              <div class="form-group">
+                <input type="text" id="alertTitle" value="ভারী বৃষ্টির সতর্কতা" placeholder="শিরোনাম">
+              </div>
+              <div class="form-group">
+                <textarea id="alertBody" rows="2" placeholder="বার্তা">বগুড়া এলাকায় আগামী ২৪ ঘণ্টায় ভারী বৃষ্টির সম্ভাবনা রয়েছে। জমির পানি নিষ্কাশন নালা কেটে রাখুন।</textarea>
+              </div>
+              <button id="btnSendAlert" class="btn-admin-action warning">SMS ব্রডকাস্ট করুন</button>
+              <span id="alertResult" class="action-result"></span>
+            </div>
+
+            <div class="stats-card" id="systemStatsBox">
+              <h4>📊 সিস্টেম পরিসংখ্যান</h4>
+              <p id="statsText">লোড হচ্ছে...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="tab-bazar">
+        <span class="nav-icon">🏷️</span>
+        <span class="nav-text">বাজারদর</span>
+      </button>
+      <button class="nav-item" data-tab="tab-consultant">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-text">এআই ডাক্তার</span>
+      </button>
+      <button class="nav-item" data-tab="tab-weather">
+        <span class="nav-icon">🌦️</span>
+        <span class="nav-text">আবহাওয়া</span>
+      </button>
+      <button class="nav-item" data-tab="tab-profile">
+        <span class="nav-icon">🧑‍🌾</span>
+        <span class="nav-text">খামার</span>
+      </button>
+      <button class="nav-item" data-tab="tab-admin">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-text">কন্ট্রোল</span>
+      </button>
+    </nav>
+  </div>
+
+  <audio id="globalAudioPlayer" style="display:none;"></audio>
+  <script src="app.js"></script>
+</body>
+</html>

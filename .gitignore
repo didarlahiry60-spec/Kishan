@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+backend/venv/
+backend/.pytest_cache/
+backend/app/static/audio_cache/
+
+# Databases & local state
+*.log
+.DS_Store
+
+# Flutter / Dart
+kishan_app/.dart_tool/
+kishan_app/.flutter-plugins
+kishan_app/.flutter-plugins-dependencies
+kishan_app/.packages
+kishan_app/build/
+kishan_app/.pub-cache/
+kishan_app/.pub/
