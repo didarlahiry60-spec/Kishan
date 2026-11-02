@@ -1,15 +1,18 @@
 import os
+from datetime import date
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from sqlalchemy import func
 
 from app.config import settings
 from app.database import Base, engine, SessionLocal
 from app.models.commodity import CommodityPrice
 from app.seed_data import seed_database
 from app.scheduler import start_scheduler, stop_scheduler
+from app.services.bazar_service import bazar_service
 
 # Routers
 from app.api.v1.router_bazar import router as bazar_router
@@ -29,6 +32,14 @@ async def lifespan(app: FastAPI):
         if count == 0:
             print("[Startup] Initializing empty database with reference agricultural data...")
             seed_database(force=False)
+        else:
+            latest_date = db.query(func.max(CommodityPrice.price_date)).scalar()
+            today = date.today()
+            if latest_date != today:
+                print(f"[Startup] Updating market prices for today ({today})...")
+                await bazar_service.sync_daily_prices(db, target_date=today)
+    except Exception as e:
+        print(f"[Startup] Error checking daily sync: {e}")
     finally:
         db.close()
 

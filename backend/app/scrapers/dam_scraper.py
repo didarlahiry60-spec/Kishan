@@ -30,7 +30,7 @@ class DAMScraper:
         
         scraped_items = []
         try:
-            async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers, follow_redirects=True) as client:
+            async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers, follow_redirects=True, verify=False) as client:
                 response = await client.get(DAM_DAILY_URL)
                 if response.status_code == 200:
                     scraped_items = self._parse_html(response.text, target_date)
