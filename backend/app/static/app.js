@@ -121,6 +121,13 @@ function setupTabs() {
       else if (targetId === "tab-bazar") renderTrendSvg();
     });
   });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedTab = urlParams.get("tab");
+  if (requestedTab) {
+    const tabBtn = document.querySelector(`.bottom-nav .nav-item[data-tab="tab-${requestedTab}"]`);
+    if (tabBtn) tabBtn.click();
+  }
 }
 
 // 2. District Selector
