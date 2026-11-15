@@ -6,7 +6,7 @@ import '../models/farmer_profile.dart';
 
 class ApiService {
   // লোকাল এমুলেটর বা ডিভাইসের জন্য কনফিগারযোগ্য বেস ইউআরএল (10.0.2.2 ফর অ্যান্ড্রয়েড এমুলেটর)
-  static const String baseUrl = 'http://10.0.2.2:8000/api/v1';
+  static const String baseUrl = 'http://10.0.2.2:8005/api/v1';
 
   static Future<List<Commodity>> fetchDailyPrices({
     required String district,
