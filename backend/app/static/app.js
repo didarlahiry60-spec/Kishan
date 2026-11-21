@@ -2,7 +2,7 @@
 
 // Base API endpoint URL detection (supports local, cloudflare, and GitHub Pages)
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname.includes("trycloudflare");
-const API_BASE = isLocal ? "" : "https://toe-lists-norm-bangkok.trycloudflare.com";
+const API_BASE = isLocal ? "" : "https://realized-fire-consumers-wonderful.trycloudflare.com";
 
 let currentDistrict = "বগুড়া";
 let currentCategory = "সব";
